@@ -15,5 +15,12 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Technology
-- [Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Vitest](https://vitest.dev/)
+- [Playwright](https://playwright.dev/)
+- [dndkit](https://docs.dndkit.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [eslint](https://eslint.org/)

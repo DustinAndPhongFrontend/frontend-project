@@ -23,7 +23,13 @@ export default function RootLayout({
         className={`${unifrakturMaguntia.className} antialiased`}
       >
         <AppProvider>
+            <header>
+                This is the navbar
+            </header>
             {children}
+            <footer>
+                This is the footer
+            </footer>
         </AppProvider>
       </body>
     </html>
