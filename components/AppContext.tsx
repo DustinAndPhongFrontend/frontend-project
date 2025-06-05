@@ -2,9 +2,13 @@
 
 import React, {createContext, useContext, useReducer} from 'react'
 
-interface State {}
+interface State {
+    example: null
+}
 
-export const initialState: State = {}
+export const initialState: State = {
+    example: null,
+}
 
 type ACTION =
     | { type: "DO_NOTHING" }

@@ -1,9 +1,9 @@
 # Frontend Project (name TBD)
 
 
-![deploy](https://github.com/DustinAlandzes/frontend-project/actions/workflows/nextjs.yml/badge.svg?branch=main)
-![vitest tests](https://github.com/DustinAlandzes/frontend-project/actions/workflows/vitest.yml/badge.svg?branch=main)
-![e2e tests](https://github.com/DustinAlandzes/frontend-project/actions/workflows/playwright.yml/badge.svg?branch=main)
+![deploy](https://github.com/DustinAndPhongFrontend/frontend-project/actions/workflows/nextjs.yml/badge.svg?branch=main)
+![vitest tests](https://github.com/DustinAndPhongFrontend/frontend-project/actions/workflows/vitest.yml/badge.svg?branch=main)
+![e2e tests](https://github.com/DustinAndPhongFrontend/frontend-project/actions/workflows/playwright.yml/badge.svg?branch=main)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
