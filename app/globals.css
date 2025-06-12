@@ -30,5 +30,26 @@ body {
   border-radius: 5px;
   padding: 10px;
   display: flex;
+  position: relative;
   justify-content: center;
+}
+
+.inventory-slot:hover {
+  cursor: pointer;
+}
+
+.dragging-inventory-slot {
+  z-index: 2;
+}
+
+.inventory-slot-item-droppable-area {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  opacity: 0;
+}
+
+.empty-inventory-slot-hovered-with-droppable, .inventory-slot-hovered-with-droppable {
+  background-color: lightgray !important;
 }
