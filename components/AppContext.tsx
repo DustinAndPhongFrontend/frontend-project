@@ -1,23 +1,51 @@
 'use client'
 
 import React, {createContext, useContext, useReducer} from 'react'
+import {EQUIPMENT, Item, ITEMS} from "@/components/items";
+
+
+const sampleItems: Item[] = [
+    ITEMS[0],
+    EQUIPMENT[0],
+    EQUIPMENT[1],
+]
+
+const INVENTORY_SIZE = 16
+export const EMPTY_ITEM = {
+    id: "",
+    name: "",
+    description: "",
+    image: "",
+}
 
 interface State {
-    example: null
+    inventory: Item[]
 }
 
 export const initialState: State = {
-    example: null,
+    inventory: [...sampleItems, ...Array(INVENTORY_SIZE - sampleItems.length).fill(EMPTY_ITEM)]
 }
 
 type ACTION =
-    | { type: "DO_NOTHING" }
+    | { type: "MOVE_ITEM", fromIndex: number, toIndex: number }
 
 export function appReducer(state: State, action: ACTION): State {
     console.debug(action)
     switch (action.type) {
-        case "DO_NOTHING":
-            return state;
+        case "MOVE_ITEM":
+            // Create a copy of the inventory
+            const newInventory = state.inventory.slice()
+
+            // Switch the items
+            const fromItem = newInventory[action.fromIndex];
+            const toItem = newInventory[action.toIndex];
+            newInventory[action.fromIndex] = toItem;
+            newInventory[action.toIndex] = fromItem;
+
+            return {
+                ...state,
+                inventory: newInventory
+            };
         default:
             return state;
     }
