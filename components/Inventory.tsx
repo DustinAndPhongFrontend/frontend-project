@@ -14,7 +14,7 @@ function InventorySlot({item, inventoryIndex}: InventorySlotProps) {
     const {attributes, listeners, setNodeRef, transform, isDragging} = useDraggable({
         id: `draggable-${inventoryIndex}`,
         data: {
-            type: 'item',
+            type: item.type,
             inventoryIndex: inventoryIndex
         },
     });
@@ -22,7 +22,7 @@ function InventorySlot({item, inventoryIndex}: InventorySlotProps) {
     const {setNodeRef: setDroppableNodeRef, isOver} = useDroppable({
         id: `droppable-${inventoryIndex}`,
         data: {
-            accepts: ['item'],
+            accepts: ['item', 'armor', 'weapon', 'boots', 'helmet'],
             inventoryIndex: inventoryIndex
         },
     });
@@ -55,15 +55,17 @@ function EmptyInventorySlot({inventoryIndex}: EmptyInventorySlotProps) {
     </div>
 }
 
-// TODO: make an underlying grid and then put the items on top of it, so when you drag them, it shows an empty slot
-// Actually just use DragOverlay?
-
+// DragOverlay?
 // https://www.apollographql.com/docs/
 // https://dndkit.com/
 export default function Inventory() {
     const {inventory} = useApp()
 
-    return <div style={{
+    return <div>
+        <div>
+            {"Inventory"}
+        </div>
+        <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gridAutoRows: '20vh'
@@ -78,4 +80,5 @@ export default function Inventory() {
                     }
                 )}
         </div>
+    </div>
 }

@@ -10,21 +10,29 @@ export type Item = {
     name: string;
     description: string;
     image: string;
+    type: string;
 }
 
-type Stats = {
+export type Stats = {
     intelligence: number;
     strength: number;
     dexterity: number;
     luck: number;
     health: number;
     mana: number;
-    damage: number;
 }
 
-type EquipmentItem = Item & {
+export enum EquipmentSlots {
+    helmet = "helmet",
+    armor = "armor",
+    weapon = "weapon",
+    boots = "boots",
+}
+
+export type EquipmentItem = Item & {
     stats: Stats;
     class?: CharacterClass;
+    type: EquipmentSlots
 }
 
 // maybe this should actually be a map from id -> item
@@ -42,9 +50,9 @@ export const EQUIPMENT: EquipmentItem[] = [
             luck: 0,
             health: 0,
             mana: 0,
-            damage: 0
         },
         class: CharacterClass.Knight,
+        type: EquipmentSlots.weapon
     },
     {
         id: "2",
@@ -58,9 +66,9 @@ export const EQUIPMENT: EquipmentItem[] = [
             luck: 0,
             health: 0,
             mana: 0,
-            damage: 0
         },
         class: CharacterClass.Knight,
+        type: EquipmentSlots.weapon
     }
 ]
 
@@ -70,5 +78,6 @@ export const ITEMS: Item[] = [
         name: "health potion",
         description: "",
         image: "",
+        type: "item"
     }
 ]
