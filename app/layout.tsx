@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "./globals.css";
 import AppProvider from "@/components/AppContext";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "RPG",
   description: "Dustin and Phong's Frontend Project",
 };
 
-const unifrakturMaguntia = localFont({
-  src: './UnifrakturMaguntia-Regular.ttf',
+const germaniaOne = localFont({
+  src: './GermaniaOne-Regular.ttf',
 })
 
 export default function RootLayout({
@@ -20,16 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${unifrakturMaguntia.className} antialiased`}
+        className={`${germaniaOne.className} antialiased`}
       >
         <AppProvider>
-            <header>
-                This is the navbar
-            </header>
-            {children}
-            <footer>
-                This is the footer
-            </footer>
+            <Header/>
+            <main>
+                {children}
+            </main>
         </AppProvider>
       </body>
     </html>
