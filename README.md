@@ -27,3 +27,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## References
 - https://pixabay.com/sound-effects/medieval-75892/
+- https://market.pmnd.rs/model/sword-1
+- https://market.pmnd.rs/model/whole-ham
+- https://market.pmnd.rs/model/turkey
+- https://market.pmnd.rs/model/tomato
+- https://market.pmnd.rs/model/crossbow
