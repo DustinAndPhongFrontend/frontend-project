@@ -2,7 +2,6 @@
 
 import {Stats} from '@/components/items'
 import {useEffect, useState} from "react";
-import { useRouter } from 'next/router';
 
 const NOUN_LIST = [
     "Baron",
@@ -37,10 +36,8 @@ const ADJECTIVE_LIST = [
 ]
 
 export default function Home() {
-    const router = useRouter();
-
     async function playHorn() {
-        const audio = new Audio(`${router.basePath}/horn-sound.mp3`)
+        const audio = new Audio(`/frontend-project/horn-sound.mp3`)
         await audio.play()
     }
 
