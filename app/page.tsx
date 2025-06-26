@@ -2,6 +2,7 @@
 
 import {Stats} from '@/components/items'
 import {useEffect, useState} from "react";
+import { useRouter } from 'next/router';
 
 const NOUN_LIST = [
     "Baron",
@@ -36,16 +37,16 @@ const ADJECTIVE_LIST = [
 ]
 
 export default function Home() {
+    const router = useRouter();
 
     async function playHorn() {
-        const audio = new Audio(`/horn-sound.mp3`)
+        const audio = new Audio(`${router.basePath}/horn-sound.mp3`)
         await audio.play()
     }
 
     const [username, setUsername] = useState<string>('')
     const [characterClass, setCharacterClass] = useState<string>('Knight')
     const [stats, setStats] = useState<Stats>(rollStats())
-
     const [placeholderUsername, setPlaceholderUsername] = useState<string>("")
 
     function rollStats(): Stats {
