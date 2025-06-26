@@ -1,4 +1,10 @@
+import {useApp} from "@/components/AppContext";
+import {experienceRequiredToLevelUp, statsFromEquipment} from "@/components/items";
+
 export default function Stats() {
+    const {username, characterClass, stats, equipment} = useApp()
+    const equippedStats = statsFromEquipment(equipment)
+
     return <div>
         <h1>Stats</h1>
 
@@ -15,28 +21,28 @@ export default function Stats() {
                     justifyContent: "space-around"
                 }}>
                     <div>Username</div>
-                    <div>Dustin</div>
+                    <div>{username}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Class</div>
-                    <div>Magician</div>
+                    <div>{characterClass}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Level</div>
-                    <div>3</div>
+                    <div>{stats.level}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Experience</div>
-                    <div>1/100</div>
+                    <div>{stats.experience}/{experienceRequiredToLevelUp(stats.level)}</div>
                 </div>
                 <div style={{
                     display: "flex",
@@ -59,28 +65,28 @@ export default function Stats() {
                     justifyContent: "space-around"
                 }}>
                     <div>Intelligence</div>
-                    <div>10</div>
+                    <div>{stats.intelligence + equippedStats.intelligence}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Strength</div>
-                    <div>15</div>
+                    <div>{stats.strength + equippedStats.strength}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Dexterity</div>
-                    <div>2</div>
+                    <div>{stats.dexterity + equippedStats.dexterity}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Intelligence</div>
-                    <div>1</div>
+                    <div>{stats.dexterity + equippedStats.dexterity}</div>
                 </div>
             </div>
         </div>

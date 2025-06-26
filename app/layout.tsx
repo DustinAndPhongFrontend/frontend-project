@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import "./globals.css";
 import AppProvider from "@/components/AppContext";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "RPG",
@@ -23,9 +24,7 @@ export default function RootLayout({
         className={`${unifrakturMaguntia.className} antialiased`}
       >
         <AppProvider>
-            <header>
-                This is the navbar
-            </header>
+            <Header/>
             {children}
             <footer>
                 This is the footer

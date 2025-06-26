@@ -2,8 +2,11 @@ import {useDroppable} from "@dnd-kit/core";
 import {useApp} from "@/components/AppContext";
 import {EquipmentItem} from "@/components/items";
 
+export const EQUIPMENT_SLOTS = ["weapon", "helmet", "armor", "boots"]
+
+
 function HelmetSlot({helmet} : {helmet: EquipmentItem | null}) {
-    const {setNodeRef} = useDroppable({
+    const {setNodeRef, isOver} = useDroppable({
         id: `helmet`,
         data: {
             accepts: ['helmet'],
@@ -12,29 +15,34 @@ function HelmetSlot({helmet} : {helmet: EquipmentItem | null}) {
     });
 
     if (helmet) {
-        return <div className={"inventory-slot"} ref={setNodeRef}>
+        return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
             {helmet.name}
         </div>
     }
-    return <div className={"inventory-slot"} ref={setNodeRef}>
+    return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
         Helmet
     </div>
 }
 
-function ArmorSlot() {
-    const {setNodeRef} = useDroppable({
+function ArmorSlot({armor}: {armor: EquipmentItem | null}) {
+    const {setNodeRef, isOver} = useDroppable({
         id: `armor`,
         data: {
             accepts: ['armor'],
             slot: 'armor'
         },
     });
-    return <div className={"inventory-slot"} ref={setNodeRef}>
+    if (armor) {
+        return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
+            {armor.name}
+        </div>
+    }
+    return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
         Armor
     </div>
 }
 
-function WeaponSlot({weapon} : {weapon: EquipmentItem | null}) {
+function WeaponSlot({weapon}: {weapon: EquipmentItem | null}) {
     const {setNodeRef, isOver} = useDroppable({
         id: `weapon`,
         data: {
@@ -53,16 +61,20 @@ function WeaponSlot({weapon} : {weapon: EquipmentItem | null}) {
     </div>
 }
 
-function BootsSlot() {
-    const {setNodeRef} = useDroppable({
+function BootsSlot({boots}: {boots: EquipmentItem | null}) {
+    const {setNodeRef, isOver} = useDroppable({
         id: `boots`,
         data: {
             accepts: ['boots'],
             slot: 'boots'
         },
     });
-
-    return <div className={"inventory-slot"} ref={setNodeRef}>
+    if (boots) {
+        return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
+            {boots.name}
+        </div>
+    }
+    return <div className={`${isOver && "inventory-slot-hovered-with-droppable"} inventory-slot`} ref={setNodeRef}>
         Boots
     </div>
 }
@@ -70,15 +82,17 @@ function BootsSlot() {
 export default function Equipment() {
     const {equipment} = useApp()
 
-    return <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(1, 1fr)',
-        gridAutoRows: '20vh'
-    }}>
+    return <div>
         <h1>Equipment</h1>
-        <HelmetSlot helmet={equipment.helmet}/>
-        <ArmorSlot/>
-        <WeaponSlot weapon={equipment.weapon}/>
-        <BootsSlot />
+        <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(1, 1fr)',
+            gridAutoRows: '20vh'
+        }}>
+            <HelmetSlot helmet={equipment.helmet}/>
+            <ArmorSlot armor={equipment.armor}/>
+            <WeaponSlot weapon={equipment.weapon}/>
+            <BootsSlot boots={equipment.boots}/>
+        </div>
     </div>
 }

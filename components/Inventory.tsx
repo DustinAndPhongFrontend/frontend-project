@@ -3,6 +3,7 @@
 import {useDraggable, useDroppable} from "@dnd-kit/core";
 import {EMPTY_ITEM, useApp} from "@/components/AppContext";
 import {Item} from "@/components/items";
+import {EQUIPMENT_SLOTS} from "@/components/Equipment";
 
 
 type InventorySlotProps = {
@@ -46,7 +47,7 @@ function EmptyInventorySlot({inventoryIndex}: EmptyInventorySlotProps) {
     const {setNodeRef, isOver} = useDroppable({
         id: `droppable-${inventoryIndex}`,
         data: {
-            accepts: ['item'],
+            accepts: [...EQUIPMENT_SLOTS, 'item'],
             inventoryIndex: inventoryIndex
         },
     });
@@ -56,7 +57,6 @@ function EmptyInventorySlot({inventoryIndex}: EmptyInventorySlotProps) {
 }
 
 // DragOverlay?
-// https://www.apollographql.com/docs/
 // https://dndkit.com/
 export default function Inventory() {
     const {inventory} = useApp()
