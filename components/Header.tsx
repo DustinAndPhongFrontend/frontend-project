@@ -3,12 +3,23 @@
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import localFont from "next/font/local";
+import {animated, useSpring} from '@react-spring/web'
 
 const unifrakturMaguntia = localFont({
     src: '../app/UnifrakturMaguntia-Regular.ttf',
 })
 
 export default function Header() {
+    const styles = useSpring({
+        from: {
+            opacity: 0,
+            y: '6%',
+        },
+        to: {
+            opacity: 1,
+            y: 0,
+        },
+    })
 
     return <header style={{
         height: '10vh',
@@ -21,16 +32,17 @@ export default function Header() {
             justifyContent: 'space-around',
             alignItems: 'center',
         }}>
-                        <span style={{
-                            width: '5vw'
-                        }}>
+            <span style={{
+                width: '5vw'
+            }}>
                 <Logo/>
             </span>
-            <div style={{
+            <animated.div style={{
                 fontSize: '3rem',
+                ...styles
             }}>
                 <Link href={"/"}>Medieval Times</Link>
-            </div>
+            </animated.div>
         </div>
         <div style={{
             display: 'flex',
