@@ -34,6 +34,7 @@ interface State {
     inventory: Item[],
     equipment: EquippedItems,
     stats: Stats
+    gold: number
 }
 
 
@@ -56,14 +57,18 @@ export const initialState: State = {
         dexterity: 5,
         luck: 5,
 
-        health: 100,
-        mana: 100,
-    }
+        currentHealth: 100,
+        maxHealth: 100,
+        currentMana: 100,
+        maxMana: 100,
+    },
+    gold: 0
 }
 
 type ACTION =
     | { type: "MOVE_ITEM", fromIndex: number, toIndex: number }
     | { type: "EQUIP_ITEM", equipment_slot: EquipmentSlots, item: Item }
+    | { type: "COMPLETE_QUEST", quest_name: string  }
 
 export function appReducer(state: State, action: ACTION): State {
     console.debug(action)
@@ -95,6 +100,11 @@ export function appReducer(state: State, action: ACTION): State {
                     [action.equipment_slot]: action.item
                 },
                 inventory: newInventory
+            }
+        case "COMPLETE_QUEST":
+            return {
+                ...state,
+                gold: state.gold + 10
             }
         default:
             return state;

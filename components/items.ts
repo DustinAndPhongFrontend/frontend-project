@@ -22,8 +22,10 @@ export type Stats = {
     strength: number;
     dexterity: number;
     luck: number;
-    health: number;
-    mana: number;
+    currentHealth: number;
+    maxHealth: number;
+    currentMana: number;
+    maxMana: number;
 }
 
 export function experienceRequiredToLevelUp(level: number): number{
@@ -33,17 +35,19 @@ export function experienceRequiredToLevelUp(level: number): number{
 
 export function statsFromEquipment(equipment: EquippedItems): Stats {
     const equipmentArray = [equipment.helmet, equipment.armor, equipment.weapon, equipment.boots]
-    const baseStats = {
+    const baseStats: Stats = {
+        currentHealth: 0,
+        maxHealth: 0,
+        currentMana: 0,
+        maxMana: 0,
         dexterity: 0,
         intelligence: 0,
         luck: 0,
         strength: 0,
-        health: 0,
-        mana: 0,
         level: 0,
-        experience: 0,
+        experience: 0
     }
-    return equipmentArray.reduce((acc: Stats, cur: EquipmentItem | null) => {
+    return equipmentArray.reduce<Stats>((acc: Stats, cur: EquipmentItem | null) => {
         if (cur) {
             return {
                 ...acc,
@@ -85,8 +89,10 @@ export const EQUIPMENT: EquipmentItem[] = [
             strength: 10,
             dexterity: 0,
             luck: 10,
-            health: 0,
-            mana: 0,
+            currentHealth: 0,
+            maxHealth: 0,
+            currentMana: 0,
+            maxMana: 0,
             level: 0,
             experience: 0
         },
@@ -103,8 +109,10 @@ export const EQUIPMENT: EquipmentItem[] = [
             strength: 10,
             dexterity: 0,
             luck: 0,
-            health: 0,
-            mana: 0,
+            currentHealth: 0,
+            maxHealth: 0,
+            currentMana: 0,
+            maxMana: 0,
             level: 0,
             experience: 0
         },
@@ -121,8 +129,10 @@ export const EQUIPMENT: EquipmentItem[] = [
             strength: 0,
             dexterity: 20,
             luck: 0,
-            health: 0,
-            mana: 0,
+            currentHealth: 0,
+            maxHealth: 0,
+            currentMana: 0,
+            maxMana: 0,
             level: 0,
             experience: 0
         },
@@ -139,8 +149,10 @@ export const EQUIPMENT: EquipmentItem[] = [
             strength: 0,
             dexterity: 0,
             luck: 30,
-            health: 0,
-            mana: 30,
+            currentHealth: 0,
+            maxHealth: 0,
+            currentMana: 0,
+            maxMana: 0,
             level: 0,
             experience: 0
         },
