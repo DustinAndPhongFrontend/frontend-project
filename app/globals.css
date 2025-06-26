@@ -33,6 +33,8 @@ body {
   display: flex;
   position: relative;
   justify-content: center;
+  max-width: 10vw;
+  min-width: 10vw;
 }
 
 .inventory-slot:hover {
@@ -53,4 +55,20 @@ body {
 
 .empty-inventory-slot-hovered-with-droppable, .inventory-slot-hovered-with-droppable {
   background-color: lightgray !important;
+}
+
+a:hover {
+  text-decoration: overline black;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh;
+}
+
+#stats-dice-button:hover {
+  cursor: pointer;
 }

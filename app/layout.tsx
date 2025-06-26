@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description: "Dustin and Phong's Frontend Project",
 };
 
-const unifrakturMaguntia = localFont({
-  src: './UnifrakturMaguntia-Regular.ttf',
+const germaniaOne = localFont({
+  src: './GermaniaOne-Regular.ttf',
 })
 
 export default function RootLayout({
@@ -21,14 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${unifrakturMaguntia.className} antialiased`}
+        className={`${germaniaOne.className} antialiased`}
       >
         <AppProvider>
             <Header/>
-            {children}
-            <footer>
-                This is the footer
-            </footer>
+            <main>
+                {children}
+            </main>
         </AppProvider>
       </body>
     </html>

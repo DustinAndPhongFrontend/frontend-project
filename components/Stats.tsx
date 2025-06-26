@@ -49,14 +49,14 @@ export default function Stats() {
                     justifyContent: "space-around"
                 }}>
                     <div>Health</div>
-                    <div>100/100</div>
+                    <div>{stats.currentHealth}/{stats.maxHealth}</div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Mana</div>
-                    <div>100/100</div>
+                    <div>{stats.currentMana}/{stats.maxMana}</div>
                 </div>
             </div>
             <div>
@@ -65,28 +65,39 @@ export default function Stats() {
                     justifyContent: "space-around"
                 }}>
                     <div>Intelligence</div>
-                    <div>{stats.intelligence + equippedStats.intelligence}</div>
+                    <div>
+                        {stats.intelligence + equippedStats.intelligence} {" "}
+                        (+ {equippedStats.intelligence})
+                    </div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Strength</div>
-                    <div>{stats.strength + equippedStats.strength}</div>
+                    <div>
+                        {stats.strength + equippedStats.strength} {" "}
+                        (+ {equippedStats.strength})
+                    </div>
                 </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
                     <div>Dexterity</div>
-                    <div>{stats.dexterity + equippedStats.dexterity}</div>
-                </div>
+                    <div>
+                        {stats.dexterity + equippedStats.dexterity} {" "}
+                        (+ {equippedStats.dexterity})
+                    </div>                </div>
                 <div style={{
                     display: "flex",
                     justifyContent: "space-around"
                 }}>
-                    <div>Intelligence</div>
-                    <div>{stats.dexterity + equippedStats.dexterity}</div>
+                    <div>Luck</div>
+                    <div>
+                        {stats.luck + equippedStats.luck} {" "}
+                        (+ {equippedStats.luck})
+                    </div>
                 </div>
             </div>
         </div>
