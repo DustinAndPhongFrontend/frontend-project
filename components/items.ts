@@ -11,9 +11,56 @@ export type Item = {
     id: string;
     name: string;
     description: string;
-    image: string;
+    image?: string;
     type: string;
 }
+
+export type EquipmentStats = {
+    strength: number;
+    dexterity: number;
+    intelligence: number;
+    luck: number;
+    maxHealth: number;
+    maxMana: number;
+}
+
+// Item type for equipment with stats
+export type EquipmentItem = {
+    id: string;
+    name: string;
+    description: string;
+    image?: string;
+    type: string;
+    equipmentSlot: string;
+    rarity: string;
+    value: number;
+    stats: EquipmentStats;
+    requirements: {
+        level: number;
+        class: string | null;
+    };
+}
+
+// Material/Consumable Item type
+export type MaterialItem = {
+    id: string;
+    name: string;
+    description: string;
+    image?: string;
+    type: string;
+    equipmentSlot: null;
+    rarity: string;
+    value: number;
+    stats: null;
+    requirements: null;
+    craftingMaterial?: boolean;
+    effect?: {
+        type: string;
+        amount: number;
+    };
+}
+
+export type GameItem = EquipmentItem | MaterialItem | Item;
 
 export type Stats = {
     level: number;
@@ -48,13 +95,15 @@ export function statsFromEquipment(equipment: EquippedItems): Stats {
         experience: 0
     }
     return equipmentArray.reduce<Stats>((acc: Stats, cur: EquipmentItem | null) => {
-        if (cur) {
+        if (cur && cur.stats) {
             return {
                 ...acc,
-                strength: acc.strength + cur?.stats.strength,
-                intelligence: acc.intelligence + cur?.stats.intelligence,
-                dexterity: acc.dexterity + cur?.stats.dexterity,
-                luck: acc.luck + cur?.stats.luck,
+                strength: acc.strength + cur.stats.strength,
+                intelligence: acc.intelligence + cur.stats.intelligence,
+                dexterity: acc.dexterity + cur.stats.dexterity,
+                luck: acc.luck + cur.stats.luck,
+                maxHealth: acc.maxHealth + cur.stats.maxHealth,
+                maxMana: acc.maxMana + cur.stats.maxMana
             }
         } else {
             return acc
@@ -69,12 +118,6 @@ export enum EquipmentSlots {
     boots = "boots",
 }
 
-export type EquipmentItem = Item & {
-    stats: Stats;
-    class: CharacterClass | null;
-    type: EquipmentSlots
-}
-
 // maybe this should actually be a map from id -> item
 // There should be a way to reference each by variable name, maybe through graphql
 // maybe transform it?
@@ -84,80 +127,88 @@ export const EQUIPMENT: EquipmentItem[] = [
         name: "sword",
         description: "",
         image: "",
+        type: "weapon",
+        equipmentSlot: "weapon",
+        rarity: "common",
+        value: 50,
         stats: {
             intelligence: 0,
             strength: 10,
             dexterity: 0,
             luck: 10,
-            currentHealth: 0,
             maxHealth: 0,
-            currentMana: 0,
             maxMana: 0,
-            level: 0,
-            experience: 0
         },
-        class: CharacterClass.Knight,
-        type: EquipmentSlots.weapon
+        requirements: {
+            level: 1,
+            class: "Knight"
+        }
     },
     {
         id: "2",
         name: "Hard hat",
         description: "",
         image: "",
+        type: "helmet",
+        equipmentSlot: "helmet",
+        rarity: "common",
+        value: 25,
         stats: {
             intelligence: 0,
             strength: 10,
             dexterity: 0,
             luck: 0,
-            currentHealth: 0,
             maxHealth: 0,
-            currentMana: 0,
             maxMana: 0,
-            level: 0,
-            experience: 0
         },
-        class: null,
-        type: EquipmentSlots.helmet
+        requirements: {
+            level: 1,
+            class: null
+        }
     },
     {
         id: "3",
         name: "Leather boots",
         description: "",
         image: "",
+        type: "boots",
+        equipmentSlot: "boots",
+        rarity: "common",
+        value: 30,
         stats: {
             intelligence: 0,
             strength: 0,
             dexterity: 20,
             luck: 0,
-            currentHealth: 0,
             maxHealth: 0,
-            currentMana: 0,
             maxMana: 0,
-            level: 0,
-            experience: 0
         },
-        class: null,
-        type: EquipmentSlots.boots
+        requirements: {
+            level: 1,
+            class: null
+        }
     },
     {
         id: "4",
         name: "Magician robe",
         description: "",
         image: "",
+        type: "armor",
+        equipmentSlot: "armor",
+        rarity: "uncommon",
+        value: 75,
         stats: {
             intelligence: 100,
             strength: 0,
             dexterity: 0,
             luck: 30,
-            currentHealth: 0,
             maxHealth: 0,
-            currentMana: 0,
             maxMana: 0,
-            level: 0,
-            experience: 0
         },
-        class: null,
-        type: EquipmentSlots.armor
+        requirements: {
+            level: 1,
+            class: null
+        }
     },
 ]
 

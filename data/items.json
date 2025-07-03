@@ -1,0 +1,588 @@
+{
+   "weapons": [
+      {
+         "id": "ancient_sword",
+         "name": "Ancient Sword",
+         "description": "A blade from a forgotten era, humming with ancient power.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "legendary",
+         "value": 150,
+         "stats": {
+            "strength": 15,
+            "dexterity": 5,
+            "intelligence": 0,
+            "luck": 10,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "enchanted_bow",
+         "name": "Enchanted Bow",
+         "description": "A magical bow that never misses its target, perfect for hunting elusive creatures.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "rare",
+         "value": 110,
+         "stats": {
+            "strength": 5,
+            "dexterity": 20,
+            "intelligence": 0,
+            "luck": 15,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "merchants_blade",
+         "name": "Merchant's Blade",
+         "description": "A fine blade crafted by a merchant's own smith, sharp and reliable for trade route protection.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "uncommon",
+         "value": 75,
+         "stats": {
+            "strength": 8,
+            "dexterity": 10,
+            "intelligence": 0,
+            "luck": 12,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "crystal_staff",
+         "name": "Crystal Staff",
+         "description": "A staff topped with a brilliant crystal that amplifies magical power.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "rare",
+         "value": 120,
+         "stats": {
+            "strength": 0,
+            "dexterity": 0,
+            "intelligence": 20,
+            "luck": 5,
+            "maxHealth": 0,
+            "maxMana": 30
+         },
+         "requirements": {
+            "level": 2,
+            "class": "Wizard"
+         }
+      },
+      {
+         "id": "smugglers_cutlass",
+         "name": "Smuggler's Cutlass",
+         "description": "A curved blade sharp enough to cleave stone, carried by notorious pirates.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "uncommon",
+         "value": 95,
+         "stats": {
+            "strength": 8,
+            "dexterity": 12,
+            "intelligence": 0,
+            "luck": 15,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "basilisk_fang_dagger",
+         "name": "Basilisk Fang Dagger",
+         "description": "A dagger crafted from the venomous fang of a deadly basilisk.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "rare",
+         "value": 90,
+         "stats": {
+            "strength": 6,
+            "dexterity": 18,
+            "intelligence": 0,
+            "luck": 8,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "sunblade",
+         "name": "Sunblade",
+         "description": "A holy sword that glows with radiant light, effective against undead.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "legendary",
+         "value": 140,
+         "stats": {
+            "strength": 12,
+            "dexterity": 8,
+            "intelligence": 5,
+            "luck": 10,
+            "maxHealth": 20,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 4,
+            "class": null
+         }
+      },
+      {
+         "id": "blade_of_dawn",
+         "name": "Blade of Dawn",
+         "description": "The legendary sword whose light banishes darkness itself.",
+         "type": "weapon",
+         "equipmentSlot": "weapon",
+         "rarity": "legendary",
+         "value": 200,
+         "stats": {
+            "strength": 25,
+            "dexterity": 10,
+            "intelligence": 15,
+            "luck": 20,
+            "maxHealth": 50,
+            "maxMana": 30
+         },
+         "requirements": {
+            "level": 6,
+            "class": null
+         }
+      }
+   ],
+   "armor": [
+      {
+         "id": "dragonscale_armor",
+         "name": "Dragonscale Armor",
+         "description": "Armor forged from the scales of an ancient dragon, providing exceptional protection.",
+         "type": "armor",
+         "equipmentSlot": "armor",
+         "rarity": "legendary",
+         "value": 180,
+         "stats": {
+            "strength": 10,
+            "dexterity": -5,
+            "intelligence": 0,
+            "luck": 5,
+            "maxHealth": 80,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 5,
+            "class": null
+         }
+      },
+      {
+         "id": "cloak_of_shadows",
+         "name": "Cloak of Shadows",
+         "description": "A mysterious cloak that grants stealth to its wearer.",
+         "type": "armor",
+         "equipmentSlot": "armor",
+         "rarity": "rare",
+         "value": 110,
+         "stats": {
+            "strength": 0,
+            "dexterity": 15,
+            "intelligence": 5,
+            "luck": 12,
+            "maxHealth": 20,
+            "maxMana": 10
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "griffin_feather_cloak",
+         "name": "Griffin Feather Cloak",
+         "description": "A cloak woven from griffin feathers, granting swift movement.",
+         "type": "armor",
+         "equipmentSlot": "armor",
+         "rarity": "rare",
+         "value": 120,
+         "stats": {
+            "strength": 5,
+            "dexterity": 20,
+            "intelligence": 0,
+            "luck": 10,
+            "maxHealth": 30,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 4,
+            "class": null
+         }
+      }
+   ],
+   "helmets": [
+      {
+         "id": "crown_of_wisdom",
+         "name": "Crown of Wisdom",
+         "description": "An ancient crown that enhances the wearer's magical abilities.",
+         "type": "helmet",
+         "equipmentSlot": "helmet",
+         "rarity": "legendary",
+         "value": 160,
+         "stats": {
+            "strength": 0,
+            "dexterity": 0,
+            "intelligence": 40,
+            "luck": 15,
+            "maxHealth": 0,
+            "maxMana": 50
+         },
+         "requirements": {
+            "level": 5,
+            "class": "Wizard"
+         }
+      }
+   ],
+   "boots": [
+      {
+         "id": "shadowstep_boots",
+         "name": "Shadowstep Boots",
+         "description": "Boots that allow the wearer to move with supernatural stealth.",
+         "type": "boots",
+         "equipmentSlot": "boots",
+         "rarity": "rare",
+         "value": 90,
+         "stats": {
+            "strength": 0,
+            "dexterity": 40,
+            "intelligence": 10,
+            "luck": 12,
+            "maxHealth": 0,
+            "maxMana": 15
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      }
+   ],
+   "shields": [
+      {
+         "id": "orcbane_shield",
+         "name": "Orcbane Shield",
+         "description": "A sturdy shield forged to withstand orcish blades.",
+         "type": "shield",
+         "equipmentSlot": "shield",
+         "rarity": "uncommon",
+         "value": 85,
+         "stats": {
+            "strength": 8,
+            "dexterity": -3,
+            "intelligence": 0,
+            "luck": 5,
+            "maxHealth": 40,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      }
+   ],
+   "accessories": [
+      {
+         "id": "crystal_shard_pendant",
+         "name": "Crystal Shard Pendant",
+         "description": "A pendant imbued with the essence of the Storm Crystal.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "rare",
+         "value": 100,
+         "stats": {
+            "strength": 0,
+            "dexterity": 5,
+            "intelligence": 15,
+            "luck": 8,
+            "maxHealth": 0,
+            "maxMana": 25
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "ring_of_nobility",
+         "name": "Ring of Nobility",
+         "description": "A magical ring symbolizing royal favor and authority.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "legendary",
+         "value": 150,
+         "stats": {
+            "strength": 5,
+            "dexterity": 5,
+            "intelligence": 10,
+            "luck": 20,
+            "maxHealth": 30,
+            "maxMana": 20
+         },
+         "requirements": {
+            "level": 4,
+            "class": null
+         }
+      },
+      {
+         "id": "explorers_compass",
+         "name": "Explorer's Compass",
+         "description": "A magical compass that guides its bearer through any storm.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "uncommon",
+         "value": 70,
+         "stats": {
+            "strength": 0,
+            "dexterity": 8,
+            "intelligence": 5,
+            "luck": 15,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "starfall_pendant",
+         "name": "Starfall Pendant",
+         "description": "A pendant imbued with starlight, blessing its wearer with foresight.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "rare",
+         "value": 90,
+         "stats": {
+            "strength": 0,
+            "dexterity": 3,
+            "intelligence": 12,
+            "luck": 18,
+            "maxHealth": 0,
+            "maxMana": 15
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "knights_crest",
+         "name": "Knight's Crest",
+         "description": "A crest honoring the legacy of cursed knights.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "uncommon",
+         "value": 75,
+         "stats": {
+            "strength": 10,
+            "dexterity": 0,
+            "intelligence": 0,
+            "luck": 8,
+            "maxHealth": 25,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 3,
+            "class": "Knight"
+         }
+      },
+      {
+         "id": "spys_locket",
+         "name": "Spy's Locket",
+         "description": "A locket that conceals secrets and aids in stealth missions.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "rare",
+         "value": 85,
+         "stats": {
+            "strength": 0,
+            "dexterity": 12,
+            "intelligence": 8,
+            "luck": 15,
+            "maxHealth": 0,
+            "maxMana": 0
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "royal_amulet",
+         "name": "Royal Amulet",
+         "description": "A sacred amulet blessed by the royal family, symbol of nobility and protection.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "rare",
+         "value": 120,
+         "stats": {
+            "strength": 3,
+            "dexterity": 3,
+            "intelligence": 8,
+            "luck": 15,
+            "maxHealth": 25,
+            "maxMana": 15
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "mystic_orb",
+         "name": "Mystic Orb",
+         "description": "An ancient relic of sorcery that grants visions of the future to its wielder.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "legendary",
+         "value": 180,
+         "stats": {
+            "strength": 0,
+            "dexterity": 0,
+            "intelligence": 25,
+            "luck": 10,
+            "maxHealth": 0,
+            "maxMana": 40
+         },
+         "requirements": {
+            "level": 3,
+            "class": null
+         }
+      },
+      {
+         "id": "amulet_of_warding",
+         "name": "Amulet of Warding",
+         "description": "A protective amulet that shields against curses and dark magic.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "rare",
+         "value": 95,
+         "stats": {
+            "strength": 0,
+            "dexterity": 5,
+            "intelligence": 12,
+            "luck": 8,
+            "maxHealth": 30,
+            "maxMana": 20
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      },
+      {
+         "id": "holy_talisman",
+         "name": "Holy Talisman",
+         "description": "A blessed talisman that provides divine protection and spiritual strength.",
+         "type": "accessory",
+         "equipmentSlot": "accessory",
+         "rarity": "uncommon",
+         "value": 85,
+         "stats": {
+            "strength": 5,
+            "dexterity": 0,
+            "intelligence": 10,
+            "luck": 12,
+            "maxHealth": 20,
+            "maxMana": 10
+         },
+         "requirements": {
+            "level": 2,
+            "class": null
+         }
+      }
+   ],
+   "materials": [
+      {
+         "id": "star_iron_ingot",
+         "name": "Star Iron Ingot",
+         "description": "A metal forged in the heavens, glowing with celestial light.",
+         "type": "material",
+         "equipmentSlot": null,
+         "rarity": "legendary",
+         "value": 200,
+         "stats": null,
+         "requirements": null,
+         "craftingMaterial": true
+      },
+      {
+         "id": "dragons_breath_flame",
+         "name": "Dragon's Breath Flame",
+         "description": "The fiery essence of a wyrm, contained in a sacred vial.",
+         "type": "material",
+         "equipmentSlot": null,
+         "rarity": "legendary", 
+         "value": 180,
+         "stats": null,
+         "requirements": null,
+         "craftingMaterial": true
+      },
+      {
+         "id": "crystal_cave_gem",
+         "name": "Crystal Cave Gem",
+         "description": "A radiant gem from the Crystal Caves, holding the power to banish shadows.",
+         "type": "material",
+         "equipmentSlot": null,
+         "rarity": "legendary",
+         "value": 160,
+         "stats": null,
+         "requirements": null,
+         "craftingMaterial": true
+      }
+   ],
+   "consumables": [
+      {
+         "id": "health_potion",
+         "name": "Health Potion",
+         "description": "A red potion that restores health when consumed.",
+         "type": "consumable",
+         "equipmentSlot": null,
+         "rarity": "common",
+         "value": 25,
+         "stats": null,
+         "requirements": null,
+         "effect": {
+            "type": "heal",
+            "amount": 50
+         }
+      },
+      {
+         "id": "mana_potion",
+         "name": "Mana Potion",
+         "description": "A blue potion that restores magical energy.",
+         "type": "consumable",
+         "equipmentSlot": null,
+         "rarity": "common",
+         "value": 25,
+         "stats": null,
+         "requirements": null,
+         "effect": {
+            "type": "mana",
+            "amount": 30
+         }
+      }
+   ]
+}

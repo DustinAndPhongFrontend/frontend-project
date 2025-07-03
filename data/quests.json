@@ -181,5 +181,29 @@
       "reward": "85 gold, Crystal Cave Gem",
       "accepted": false,
       "details": "The Crystal Caves shimmer with radiant gems, one of which is needed to complete the Blade of Dawn's forging. These caverns are a labyrinth of reflective surfaces, disorienting even the keenest explorer. Luminescent creatures dwell within, their glow masking deadly ambushes. The finest gem lies in the cave's heart, guarded by a crystalline golem that mirrors its foes' movements. Securing the Crystal Cave Gem requires both cunning and precision. Its light is said to hold the power to banish shadows forever."
+   },
+   {
+      "id": 24,
+      "title": "Seek the Ancient Scholar's Crown",
+      "description": "Retrieve the legendary Crown of Wisdom from the Lost Library of Arcanum.",
+      "reward": "120 gold, Crown of Wisdom",
+      "accepted": false,
+      "details": "Deep within the ruins of the Lost Library of Arcanum lies the Crown of Wisdom, once worn by the greatest scholar-mage in history. The library, abandoned for centuries, is now overrun by arcane constructs and magical traps that guard its ancient knowledge. The crown is said to enhance the wearer's intellectual prowess beyond mortal limits, granting insight into the deepest mysteries of magic. A consortium of wizards seeks a brave adventurer to venture into the library's depths and claim this legendary artifact. The path is treacherous, filled with riddles that test both wit and courage. Only one who values knowledge above treasure can hope to wear the Crown of Wisdom."
+   },
+   {
+      "id": 25,
+      "title": "Infiltrate the Shadow Cult",
+      "description": "Steal the mystical Shadowstep Boots from the cult's secret sanctum.",
+      "reward": "100 gold, Shadowstep Boots",
+      "accepted": false,
+      "details": "A secretive shadow cult has emerged in the city's underground, performing dark rituals to summon creatures from the void. Their leader possesses the legendary Shadowstep Boots, mystical footwear that allows silent movement through darkness itself. The city's thieves' guild, envious of this power, seeks a skilled operative to infiltrate the cult's hidden sanctum and steal the boots. The sanctum is shrouded in perpetual darkness, patrolled by shadow-wraiths that phase in and out of reality. Only someone with nerves of steel and nimble fingers can navigate the cult's defenses and escape with their prize. The boots are said to make their wearer the perfect assassin, capable of striking from shadows unseen."
+   },
+   {
+      "id": 26,
+      "title": "Awaken the Ancient Blade",
+      "description": "Retrieve the legendary Ancient Sword from the Tomb of the Forgotten King.",
+      "reward": "110 gold, Ancient Sword",
+      "accepted": false,
+      "details": "Deep beneath the crumbling ruins of an ancient citadel lies the Tomb of the Forgotten King, where the legendary Ancient Sword has slumbered for a thousand years. The blade, forged in a forgotten era and humming with ancient power, was buried with its master to prevent it from falling into the wrong hands. The tomb is protected by ancient wards, skeletal guardians, and puzzles that test the worthiness of any who would claim the sword. Local scholars speak of whispers echoing from the depths—the sword calling to a hero worthy of its power. The kingdom's weaponsmith guild offers a substantial reward to whoever can retrieve this legendary artifact, as they believe it holds secrets of lost forging techniques. Only a hero of great courage and determination can navigate the tomb's perils and awaken the Ancient Sword from its eternal rest."
    }
 ]
