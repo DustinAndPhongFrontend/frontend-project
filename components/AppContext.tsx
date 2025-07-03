@@ -2,6 +2,8 @@
 
 import React, {createContext, useContext, useReducer} from 'react'
 import {CharacterClass, EQUIPMENT, EquipmentItem, EquipmentSlots, Item, ITEMS, Stats} from "@/components/items";
+import { processQuestCompletion } from '@/utils/questCompletion';
+
 
 // Quest type definition
 export type Quest = {
@@ -137,23 +139,23 @@ export function appReducer(state: State, action: ACTION): State {
             
             if (!questToComplete) return state;
 
-            const completedQuest = {
-                ...questToComplete,
-                completed: true,
-                dateCompleted: new Date().toLocaleDateString()
-            };
+            // Use the quest completion utility to process everything
+            const completionResult = processQuestCompletion(
+                questToComplete,
+                state.inventory,
+                state.gold,
+                state.stats
+            );
 
             return {
                 ...state,
                 acceptedQuests: state.acceptedQuests.filter(q => q.id !== action.questId),
-                completedQuests: [...state.completedQuests, completedQuest],
-                gold: state.gold + 10,
-                stats: {
-                    ...state.stats,
-                    experience: state.stats.experience + 25
-                }
+                completedQuests: [...state.completedQuests, completionResult.completedQuest],
+                inventory: completionResult.newInventory,
+                gold: completionResult.newGold,
+                stats: completionResult.newStats
             };
-
+            
         case "COMPLETE_QUEST":
             return {
                 ...state,
