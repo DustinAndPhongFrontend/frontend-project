@@ -54,7 +54,7 @@ interface State {
 }
 
 export const initialState: State = {
-    username: "John Smith",
+    username: "",
     characterClass: CharacterClass.Wizard,
     inventory: [...sampleItems, ...Array(INVENTORY_SIZE - sampleItems.length).fill(EMPTY_ITEM)],
     equipment: {
@@ -83,9 +83,9 @@ export const initialState: State = {
 type ACTION =
     | { type: "MOVE_ITEM", fromIndex: number, toIndex: number }
     | { type: "EQUIP_ITEM", equipment_slot: EquipmentSlots, item: Item }
-    | { type: "COMPLETE_QUEST", quest_name: string }
     | { type: "ACCEPT_QUEST", quest: Quest }
     | { type: "FINISH_QUEST", questId: number }
+    | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats}
 
 export function appReducer(state: State, action: ACTION): State {
     console.debug(action)
@@ -155,11 +155,13 @@ export function appReducer(state: State, action: ACTION): State {
                 gold: completionResult.newGold,
                 stats: completionResult.newStats
             };
-            
-        case "COMPLETE_QUEST":
+
+        case "CREATE_CHARACTER":
             return {
                 ...state,
-                gold: state.gold + 10
+                username: action.username,
+                characterClass: action.characterClass,
+                stats: action.stats
             }
 
         default:

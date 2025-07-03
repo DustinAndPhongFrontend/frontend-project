@@ -42,10 +42,13 @@ export default function Page() {
             id="draggable-inventory"
             onDragEnd={handleDragEnd}
         >
-            <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-            }}>
+            <div
+                className={"create-character-container"}
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                }}
+            >
                 {/* The Stats component is not droppable or draggable, but it is convenient for it to be here */}
                 <Stats/>
                 <Equipment/>

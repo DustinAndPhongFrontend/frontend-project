@@ -15,7 +15,7 @@ const unifrakturMaguntia = localFont({
 });
 
 export default function Header() {
-    const { acceptedQuests } = useApp();
+    const { acceptedQuests, gold } = useApp();
     const pathname = usePathname();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     
@@ -93,6 +93,11 @@ export default function Header() {
                             </div>
                         );
                     })}
+                    <div style={{
+                        color: 'white',
+                    }}>
+                        🪙 {gold}
+                    </div>
                 </animated.div>
 
                 {/* Mobile Hamburger Button */}
