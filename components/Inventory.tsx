@@ -74,7 +74,7 @@ export default function Inventory() {
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gridAutoRows: '20vh'
+            gridAutoRows: '10vh'
         }}>
             {inventory
                 .map((item: Item, index: number) => {

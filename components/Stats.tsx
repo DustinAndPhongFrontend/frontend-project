@@ -10,7 +10,9 @@ export default function Stats() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center"
-        }}>
+        }}
+        className={"stats-container"}
+    >
             <div style={{
                 fontSize: "2rem",
                 paddingBottom: "1vh"
@@ -19,8 +21,7 @@ export default function Stats() {
             </div>
         <div style={{
             display: "grid",
-            width: "70%",
-            padding: "2rem"
+            width: "75%"
         }}>
             <div style={{
                 display: "flex",

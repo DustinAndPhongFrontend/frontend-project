@@ -9,7 +9,7 @@ function InsideCanvas() {
     return <group>
         <OrbitControls
             autoRotate={true}
-            autoRotateSpeed={3}
+            autoRotateSpeed={5}
             minPolarAngle={Math.PI/2}
             maxPolarAngle={Math.PI/2}
         />
