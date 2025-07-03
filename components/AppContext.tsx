@@ -3,6 +3,18 @@
 import React, {createContext, useContext, useReducer} from 'react'
 import {CharacterClass, EQUIPMENT, EquipmentItem, EquipmentSlots, Item, ITEMS, Stats} from "@/components/items";
 
+// Quest type definition
+export type Quest = {
+    id: number;
+    title: string;
+    description: string;
+    reward: string;
+    details: string;
+    accepted?: boolean;
+    completed?: boolean;
+    dateAccepted?: string;
+    dateCompleted?: string;
+};
 
 const sampleItems: Item[] = [
     ITEMS[0],
@@ -33,10 +45,11 @@ interface State {
     characterClass: CharacterClass,
     inventory: Item[],
     equipment: EquippedItems,
-    stats: Stats
-    gold: number
+    stats: Stats,
+    gold: number,
+    acceptedQuests: Quest[],
+    completedQuests: Quest[]
 }
-
 
 export const initialState: State = {
     username: "John Smith",
@@ -51,33 +64,34 @@ export const initialState: State = {
     stats: {
         level: 1,
         experience: 0,
-
         intelligence: 5,
         strength: 5,
         dexterity: 5,
         luck: 5,
-
         currentHealth: 100,
         maxHealth: 100,
         currentMana: 100,
         maxMana: 100,
     },
-    gold: 0
+    gold: 0,
+    acceptedQuests: [],
+    completedQuests: []
 }
 
 type ACTION =
     | { type: "MOVE_ITEM", fromIndex: number, toIndex: number }
     | { type: "EQUIP_ITEM", equipment_slot: EquipmentSlots, item: Item }
-    | { type: "COMPLETE_QUEST", quest_name: string  }
+    | { type: "COMPLETE_QUEST", quest_name: string }
+    | { type: "ACCEPT_QUEST", quest: Quest }
+    | { type: "FINISH_QUEST", questId: number }
 
 export function appReducer(state: State, action: ACTION): State {
     console.debug(action)
 
-    // Create a copy of the inventory
-    const newInventory = state.inventory.slice()
-
     switch (action.type) {
         case "MOVE_ITEM":
+            // Create a copy of the inventory
+            const newInventory = state.inventory.slice()
             // Switch the items
             const fromItem = newInventory[action.fromIndex];
             const toItem = newInventory[action.toIndex];
@@ -88,10 +102,12 @@ export function appReducer(state: State, action: ACTION): State {
                 ...state,
                 inventory: newInventory
             };
+
         case "EQUIP_ITEM":
+            const newInventory2 = state.inventory.slice()
             const indexOfItem = state.inventory.findIndex(item => item === action.item)
             // Replace the item with a blank
-            newInventory[indexOfItem] = EMPTY_ITEM
+            newInventory2[indexOfItem] = EMPTY_ITEM
 
             return {
                 ...state,
@@ -99,20 +115,57 @@ export function appReducer(state: State, action: ACTION): State {
                     ...state.equipment,
                     [action.equipment_slot]: action.item
                 },
-                inventory: newInventory
+                inventory: newInventory2
             }
+
+        case "ACCEPT_QUEST":
+            // Add quest to accepted quests with timestamp
+            const acceptedQuest = {
+                ...action.quest,
+                accepted: true,
+                dateAccepted: new Date().toLocaleDateString()
+            };
+
+            return {
+                ...state,
+                acceptedQuests: [...state.acceptedQuests, acceptedQuest]
+            };
+
+        case "FINISH_QUEST":
+            // Move quest from accepted to completed
+            const questToComplete = state.acceptedQuests.find(q => q.id === action.questId);
+            
+            if (!questToComplete) return state;
+
+            const completedQuest = {
+                ...questToComplete,
+                completed: true,
+                dateCompleted: new Date().toLocaleDateString()
+            };
+
+            return {
+                ...state,
+                acceptedQuests: state.acceptedQuests.filter(q => q.id !== action.questId),
+                completedQuests: [...state.completedQuests, completedQuest],
+                gold: state.gold + 10,
+                stats: {
+                    ...state.stats,
+                    experience: state.stats.experience + 25
+                }
+            };
+
         case "COMPLETE_QUEST":
             return {
                 ...state,
                 gold: state.gold + 10
             }
+
         default:
             return state;
     }
 }
 
 const AppContext = createContext(initialState);
-// Giving this context a useless function to satisfy typescript
 const AppDispatchContext = createContext((_: ACTION) => console.log(_));
 
 export default function AppProvider({ children } : { children: React.ReactNode }) {

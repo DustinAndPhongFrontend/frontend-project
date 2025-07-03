@@ -1,38 +1,41 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import questsData from "@/data/quests.json";
 import { QuestDisplay } from './QuestDisplay';
-
-// Type definition for a quest
-type Quest = {
-  id: number;
-  title: string;
-  description: string;
-  reward: string;
-  accepted?: boolean;
-  details: string;
-};
+import { useApp, useAppDispatch, Quest } from "@/components/AppContext";
+import { 
+  MESSAGE_BOARD_CONFIG, 
+  NAV_BUTTONS, 
+  MODAL_BUTTONS, 
+  MESSAGES,
+  isMobile
+} from './messageBoardConfig';
+import styles from './MessageBoard.module.css';
 
 export default function MessageBoard() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedQuests, setDisplayedQuests] = useState<Quest[]>([]);
   const [selectedQuest, setSelectedQuest] = useState<Quest | null>(null);
+  const [isMobileView, setIsMobileView] = useState(false);
+  
+  const { acceptedQuests } = useApp();
+  const dispatch = useAppDispatch();
 
-  // Select 5 random quests on component mount
+  // Initialize quests on mount
   useEffect(() => {
     if (questsData && questsData.length > 0) {
       const shuffled = [...questsData].sort(() => 0.6 - Math.random());
-      setDisplayedQuests(shuffled.slice(0, 6));
+      setDisplayedQuests(shuffled.slice(0, MESSAGE_BOARD_CONFIG.DISPLAYED_QUEST_COUNT));
     } else {
       console.error("questsData is empty or invalid:", questsData);
     }
-    console.log("Displayed Quests:", displayedQuests);
   }, []);
 
+  // Load Google Fonts
   useEffect(() => {
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;1,400&display=swap';
+    link.href = MESSAGE_BOARD_CONFIG.GOOGLE_FONTS_URL;
     link.rel = 'stylesheet';
     document.head.appendChild(link);
     
@@ -43,100 +46,204 @@ export default function MessageBoard() {
     };
   }, []);
 
-  const handleQuestAction = (accept: boolean) => {
-    if (selectedQuest) {
-      if (accept) {
-        setDisplayedQuests(displayedQuests.map(quest =>
-          quest.id === selectedQuest.id ? { ...quest, accepted: true } : quest
-        ));
-      }
-      setSelectedQuest(null);
+  // Handle responsive layout
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileView(isMobile());
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const replaceQuestWithNewOne = (questToReplaceId: number) => {
+    const usedQuestIds = [
+      ...displayedQuests.map(q => q.id),
+      ...acceptedQuests.map(q => q.id)
+    ];
+    
+    const availableQuests = questsData.filter(q => !usedQuestIds.includes(q.id));
+    
+    if (availableQuests.length > 0) {
+      const randomQuest = availableQuests[Math.floor(Math.random() * availableQuests.length)];
+      
+      setDisplayedQuests(prev => 
+        prev.map(quest => 
+          quest.id === questToReplaceId ? randomQuest : quest
+        )
+      );
+      
+      console.log(MESSAGES.QUEST_REPLACED(questToReplaceId, randomQuest.title));
+    } else {
+      console.log(MESSAGES.NO_MORE_QUESTS);
     }
+  };
+
+  // Filter out already accepted quests from display
+  const filterAcceptedQuests = useCallback(() => {
+    const acceptedQuestIds = acceptedQuests.map(q => q.id);
+    const filteredQuests = displayedQuests.filter(q => !acceptedQuestIds.includes(q.id));
+    
+    // If we filtered out quests, replace them with new ones
+    if (filteredQuests.length < displayedQuests.length) {
+      const usedQuestIds = [
+        ...filteredQuests.map(q => q.id),
+        ...acceptedQuests.map(q => q.id)
+      ];
+      
+      const availableQuests = questsData.filter(q => !usedQuestIds.includes(q.id));
+      const questsNeeded = MESSAGE_BOARD_CONFIG.DISPLAYED_QUEST_COUNT - filteredQuests.length;
+      
+      // Add random quests to fill the slots
+      for (let i = 0; i < questsNeeded && i < availableQuests.length; i++) {
+        const randomIndex = Math.floor(Math.random() * availableQuests.length);
+        filteredQuests.push(availableQuests.splice(randomIndex, 1)[0]);
+      }
+      
+      setDisplayedQuests(filteredQuests);
+      
+      // Reset current index if it's out of bounds
+      if (currentIndex >= filteredQuests.length) {
+        setCurrentIndex(0);
+      }
+    }
+  }, [acceptedQuests, displayedQuests, currentIndex]);
+
+  // Filter accepted quests whenever dependencies change
+  useEffect(() => {
+    if (displayedQuests.length > 0) {
+      filterAcceptedQuests();
+    }
+  }, [filterAcceptedQuests, displayedQuests.length]);
+
+  const handleQuestAction = (accept: boolean) => {
+    if (!selectedQuest) return;
+
+    if (accept) {
+      const isAlreadyAccepted = acceptedQuests.some(q => q.id === selectedQuest.id);
+      
+      if (isAlreadyAccepted) {
+        alert(MESSAGES.ALREADY_ACCEPTED);
+        setSelectedQuest(null);
+        return;
+      }
+
+      dispatch({
+        type: 'ACCEPT_QUEST',
+        quest: selectedQuest
+      });
+
+      replaceQuestWithNewOne(selectedQuest.id);
+      console.log(MESSAGES.QUEST_ACCEPTED(selectedQuest.title));
+    }
+    
+    setSelectedQuest(null);
   };
 
   const handleQuestClick = (quest: Quest & { _action?: string }) => {
     if (quest._action === 'decline') {
-      const currentQuestIds = displayedQuests.map(q => q.id);
-      const availableQuests = questsData.filter(q => !currentQuestIds.includes(q.id));
-      
-      if (availableQuests.length > 0) {
-        const randomQuest = availableQuests[Math.floor(Math.random() * availableQuests.length)];
-        const questIndex = displayedQuests.findIndex(q => q.id === quest.id);
-        const newQuests = [...displayedQuests];
-        newQuests[questIndex] = randomQuest;
-        setDisplayedQuests(newQuests);
-      }
+      replaceQuestWithNewOne(quest.id);
     } else if (quest._action === 'accept') {
+      const isAlreadyAccepted = acceptedQuests.some(q => q.id === quest.id);
+      
+      if (isAlreadyAccepted) {
+        alert(MESSAGES.ALREADY_ACCEPTED);
+        return;
+      }
+      
       setSelectedQuest(quest);
     }
   };
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : displayedQuests.length - 1));
-    console.log("Going to Previous, Current Index:", currentIndex, "Quests Length:", displayedQuests.length);
   };
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev < displayedQuests.length - 1 ? prev + 1 : 0));
-    console.log("Going to Next, Current Index:", currentIndex, "Quests Length:", displayedQuests.length);
   };
 
   const currentQuest = displayedQuests[currentIndex];
 
   return (
-    <div className="min-h-screen bg-brown-800 p-6 flex flex-col items-center">
-      <h1 className="text-5xl font-bold text-yellow-100 mb-10 drop-shadow-lg">Notice Board</h1>
-      <div className="relative w-full max-w-4xl overflow-visible">
+    <div className={`${styles.container} bg-brown-800`}>
+      <h1 className={styles.title}>Message Board</h1>
+      
+      <div className={styles.questCounter}>
+        Active Quests: {acceptedQuests.length}
+      </div>
+
+      <div className={styles.questBoard}>
         <button
           onClick={goToPrevious}
-          className="absolute left-[-50px] top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-600 shadow-lg z-30"
-          aria-label="Previous Quest"
+          className={`${styles.navButton} ${styles.navButtonLeft}`}
+          aria-label={NAV_BUTTONS.PREVIOUS.ariaLabel}
         >
-          ←
+          {NAV_BUTTONS.PREVIOUS.text}
         </button>
-        <div
-          style={{
-            backgroundImage: `url('/wood.jpeg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            boxShadow: 'inset 0 0 30px rgba(0,0,0,0.5), 0 0 30px rgba(0,0,0,0.7)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          className="w-full p-10 rounded-lg shadow-2xl border-8 border-brown-700 h-[500px] z-10"
-        >
-          {currentQuest && <QuestDisplay quest={currentQuest} onQuestClick={handleQuestClick} />}
+        
+        <div className={styles.questDisplay}>
+          {currentQuest && (
+            <QuestDisplay 
+              quest={currentQuest} 
+              onQuestClick={handleQuestClick} 
+            />
+          )}
         </div>
+        
         <button
           onClick={goToNext}
-          className="absolute right-[-50px] top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-600 shadow-lg z-30"
-          aria-label="Next Quest"
+          className={`${styles.navButton} ${styles.navButtonRight}`}
+          aria-label={NAV_BUTTONS.NEXT.ariaLabel}
         >
-          →
+          {NAV_BUTTONS.NEXT.text}
         </button>
       </div>
 
+      {/* Quest Acceptance Modal */}
       {selectedQuest && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-yellow-50 p-6 rounded-lg shadow-lg w-96 border-4 border-brown-700">
-            <h2 className="text-2xl font-bold text-brown-900 mb-4">Accept Quest?</h2>
-            <h3 className="text-xl font-semibold text-brown-800 mb-3">{selectedQuest.title}</h3>
-            <p className="mt-2 text-brown-700 mb-6">{selectedQuest.details}</p>
-            <div className="mt-4 flex justify-center space-x-4">
-              <button
-                className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 font-bold transition-colors"
-                onClick={() => handleQuestAction(true)}
-              >
-                Confirm
-              </button>
-              <button
-                className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 font-bold transition-colors"
-                onClick={() => setSelectedQuest(null)}
-              >
-                Cancel
-              </button>
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContainer}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>
+                Accept Quest?
+              </h2>
+            </div>
+
+            <div className={styles.modalContent}>
+              <h3 className={styles.questTitle}>
+                {selectedQuest.title}
+              </h3>
+              
+              <p className={styles.questDetails}>
+                {selectedQuest.details}
+              </p>
+
+              <div className={styles.rewardSection}>
+                <div className={styles.rewardLabel}>
+                  💰 REWARD
+                </div>
+                <div className={styles.rewardValue}>
+                  {selectedQuest.reward}
+                </div>
+              </div>
+
+              <div className={`${styles.buttonContainer} ${isMobileView ? styles.buttonContainerMobile : ''}`}>
+                <button
+                  className={`${styles.acceptButton} ${isMobileView ? styles.acceptButtonMobile : ''}`}
+                  onClick={() => handleQuestAction(true)}
+                >
+                  {MODAL_BUTTONS.ACCEPT.text}
+                </button>
+                
+                <button
+                  className={`${styles.cancelButton} ${isMobileView ? styles.cancelButtonMobile : ''}`}
+                  onClick={() => setSelectedQuest(null)}
+                >
+                  {MODAL_BUTTONS.CANCEL.text}
+                </button>
+              </div>
             </div>
           </div>
         </div>
