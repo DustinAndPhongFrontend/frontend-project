@@ -32,10 +32,10 @@ export default function Page() {
                         equipment_slot: over.data.current?.slot,
                         item: state.inventory[active.data.current?.inventoryIndex]
                     });
-                    const audio = new Audio(`${process.env.basePath}equip-item.mp3`, )
+                    const audio = new Audio(`https://dustin-alandzes-personal.s3.us-east-1.amazonaws.com/multiverse/equip-item.mp3`, )
                     audio.play().catch(console.error)
                 } else {
-                    const audio = new Audio(`${process.env.basePath}error.mp3#t=0.8`)
+                    const audio = new Audio(`https://dustin-alandzes-personal.s3.us-east-1.amazonaws.com/multiverse/error.mp3#t=0.8`)
                     audio.play().catch(console.error)
                 }
             // drop on inventory

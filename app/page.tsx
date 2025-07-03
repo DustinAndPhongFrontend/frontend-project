@@ -49,7 +49,7 @@ export default function Home() {
 
         dispatch({type: "CREATE_CHARACTER", username: username, characterClass: characterClass, stats: stats})
 
-        const audio = new Audio(`${process.env.basePath}horn-sound.mp3`)
+        const audio = new Audio(`https://dustin-alandzes-personal.s3.us-east-1.amazonaws.com/multiverse/horn-sound.mp3`)
         await audio.play()
     }
 
