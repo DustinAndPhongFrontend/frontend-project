@@ -4,6 +4,7 @@ import React, {createContext, useContext, useReducer} from 'react'
 import {CharacterClass, EQUIPMENT, EquipmentItem, EquipmentSlots, Item, ITEMS, Stats} from "@/components/items";
 import { processQuestCompletion } from '@/utils/questCompletion';
 
+
 // Quest type definition
 export type Quest = {
     id: number;
