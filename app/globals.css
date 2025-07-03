@@ -33,8 +33,9 @@ body {
   display: flex;
   position: relative;
   justify-content: center;
-  max-width: 10vw;
-  min-width: 10vw;
+  max-width: 15vw;
+  min-width: 15vw;
+  touch-action: manipulation;
 }
 
 .inventory-slot:hover {
@@ -74,7 +75,7 @@ main {
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #f4e8d0;
   text-decoration: none;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
@@ -83,10 +84,9 @@ main {
 }
 
 .create-character-container {
-  min-height: 50vh;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  padding: clamp(1rem, 3vw, 2rem);
   color: #f4e8d0;
+  padding: 15px;
 }
 
 .create-character-container fieldset {
@@ -115,4 +115,28 @@ main {
 option {
   background-color: #f4e8d0;
   color: black;
+}
+
+.inventory-container {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #f4e8d0;
+  padding: 5px;
+}
+
+@media (min-width: 768px) {
+  .inventory-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .inventory-container {
+    display: grid;
+    grid-template-columns: 2fr;
+  }
+
+  .stats-container {
+    grid-column: span 2;
+  }
 }

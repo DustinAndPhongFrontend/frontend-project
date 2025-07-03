@@ -45,12 +45,11 @@ export default function Home() {
     const dispatch = useAppDispatch()
 
     async function createCharacter(event: FormEvent<HTMLFormElement>) {
-        console.log(window.location.pathname)
         event.preventDefault()
 
         dispatch({type: "CREATE_CHARACTER", username: username, characterClass: characterClass, stats: stats})
 
-        const audio = new Audio(`${window.location.pathname}horn-sound.mp3`)
+        const audio = new Audio(`${process.env.basePath}horn-sound.mp3`)
         await audio.play()
     }
 
@@ -143,11 +142,15 @@ export default function Home() {
                        value={username}
                        onChange={(e) => setUsername(e.target.value)}
                        required={true}
-
                        onInvalid={e => {
                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                            // @ts-expect-error
                            e.target.setCustomValidity('Please reveal your title sire.')
+                       }}
+                       onInput={e => {
+                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                           // @ts-expect-error
+                           e.target.setCustomValidity('')
                        }}
                        suppressHydrationWarning />
             </fieldset>

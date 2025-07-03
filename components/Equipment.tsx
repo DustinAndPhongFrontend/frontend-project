@@ -96,7 +96,7 @@ export default function Equipment() {
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(1, 1fr)',
-            gridAutoRows: '20vh'
+            height: "100%"
         }}>
             <HelmetSlot helmet={equipment.helmet}/>
             <ArmorSlot armor={equipment.armor}/>

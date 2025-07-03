@@ -25,8 +25,6 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     const group = useRef<THREE.Group | null>(null)
     const { nodes, materials } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/sword-1/model.gltf') as unknown as GLTFResult
 
-    const router = useRouter();
-
     const [hovered, setHovered] = useState(false)
 
     useEffect(() => {
@@ -38,8 +36,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
                {...props}
                dispose={null}
                onPointerOver={() => setHovered(true)}
-               onPointerOut={() => setHovered(false)}
-               onClick={() => router.push("/")}>
+               onPointerOut={() => setHovered(false)}>
             <group rotation={[Math.PI / 2, 0, 0,]} scale={1.1}>
                 <mesh geometry={nodes.Cube4214.geometry} material={materials['Metal.102']} />
                 <mesh geometry={nodes.Cube4214_1.geometry} material={materials['BrownDark.073']} />
