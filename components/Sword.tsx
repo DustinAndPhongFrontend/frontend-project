@@ -40,7 +40,7 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
                onPointerOver={() => setHovered(true)}
                onPointerOut={() => setHovered(false)}
                onClick={() => router.push("/")}>
-            <group rotation={[Math.PI / 2, 0, 0,]} >
+            <group rotation={[Math.PI / 2, 0, 0,]} scale={1.1}>
                 <mesh geometry={nodes.Cube4214.geometry} material={materials['Metal.102']} />
                 <mesh geometry={nodes.Cube4214_1.geometry} material={materials['BrownDark.073']} />
                 <mesh geometry={nodes.Cube4214_2.geometry} material={materials['Stone.037']} />

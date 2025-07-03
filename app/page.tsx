@@ -1,13 +1,15 @@
 'use client'
 
-import {Stats} from '@/components/items'
-import {useEffect, useState} from "react";
+import {CharacterClass, Stats} from '@/components/items'
+import StatsComponent from '@/components/Stats'
+import {FormEvent, useEffect, useState} from "react";
+import {animated, useSpring} from "@react-spring/web";
+import {useApp, useAppDispatch} from "@/components/AppContext";
 
 const NOUN_LIST = [
     "Baron",
     "Canon",
     "Chancellor",
-    "Dreng",
     "Duke",
     "Earl",
     "Fief",
@@ -24,29 +26,63 @@ const ADJECTIVE_LIST = [
     "agile",
     "agreeable",
     "ancient",
-    "houred",
     "astonishing",
     "bountiful",
     "daring",
     "dapper",
-    "devouted",
+    "devoted",
     "delicious",
     "elderly",
     "educated",
 ]
 
 export default function Home() {
-    async function playHorn() {
-        const audio = new Audio(`/frontend-project/horn-sound.mp3`)
+    const [springs, api] = useSpring(() => ({
+        from: { y: 0 },
+    }))
+
+    const {username: createdUsername} = useApp()
+    const dispatch = useAppDispatch()
+
+    async function createCharacter(event: FormEvent<HTMLFormElement>) {
+        console.log(window.location.pathname)
+        event.preventDefault()
+
+        dispatch({type: "CREATE_CHARACTER", username: username, characterClass: characterClass, stats: stats})
+
+        const audio = new Audio(`${window.location.pathname}horn-sound.mp3`)
         await audio.play()
     }
 
     const [username, setUsername] = useState<string>('')
-    const [characterClass, setCharacterClass] = useState<string>('Knight')
-    const [stats, setStats] = useState<Stats>(rollStats())
+    const [characterClass, setCharacterClass] = useState<CharacterClass>(CharacterClass.Knight)
+    const [stats, setStats] = useState<Stats>({
+        currentHealth: 0,
+        currentMana: 0,
+        dexterity: 0,
+        experience: 0,
+        intelligence: 0,
+        level: 0,
+        luck: 0,
+        maxHealth: 0,
+        maxMana: 0,
+        strength: 0
+    })
     const [placeholderUsername, setPlaceholderUsername] = useState<string>("")
 
     function rollStats(): Stats {
+        api.start({
+            from: {
+                // react-spring...
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                rotate: 0,
+            },
+            to: {
+                rotate: 360,
+            }
+        })
+
         return {
             currentHealth: 0,
             currentMana: 0,
@@ -75,36 +111,70 @@ export default function Home() {
             setPlaceholderUsername(generateUsername())
         }, 2000); // 2000ms = 2 second
 
+        setStats(rollStats())
+
         return () => clearInterval(intervalId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // Check if player was already created
-    // If not show character creation screen
+    if (createdUsername !== "") {
+        return <div className={"create-character-container"}
+        style={{
+            width: "50%",
+        }}>
+            <StatsComponent/>
+        </div>
+    }
     return (
-        <div style={{
+        <form
+            onSubmit={createCharacter}
+            className={"create-character-container"}
+            style={{
             display: 'flex',
             flexDirection: 'column',
         }}>
-          <h1>Choose your character</h1>
-            <label>Username</label>
-            {/* Randomly create username placeholders, click button to generate username*/}
-            <input type={"text"}
-                   name={"username"}
-                   placeholder={placeholderUsername}
-                   value={username}
-                   onChange={(e) => setUsername(e.target.value)}
-                   required={true}
-                   suppressHydrationWarning />
+            <h1 className={"title"}>Choose your character</h1>
 
-            <label>Class</label>
-            <select value={characterClass} onChange={(e) => setCharacterClass(e.target.value)}>
-                <option>Knight</option>
-                <option>Magician</option>
-                <option>Archer</option>
-            </select>
+            <fieldset>
+                <label>Username</label>
+                <input type={"text"}
+                       name={"username"}
+                       placeholder={placeholderUsername}
+                       value={username}
+                       onChange={(e) => setUsername(e.target.value)}
+                       required={true}
 
-            <label>Roll your stats</label>
-            <button onClick={() => setStats(rollStats())} id={"stats-dice-button"}>🎲</button>
+                       onInvalid={e => {
+                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                           // @ts-expect-error
+                           e.target.setCustomValidity('Please reveal your title sire.')
+                       }}
+                       suppressHydrationWarning />
+            </fieldset>
+
+            <fieldset>
+                <label>Class</label>
+                <select value={characterClass} onChange={(e) => setCharacterClass(e.target.value as CharacterClass)}>
+                    <option value={CharacterClass.Knight}>Knight</option>
+                    <option value={CharacterClass.Wizard}>Wizard</option>
+                    <option value={CharacterClass.Archer}>Archer</option>
+                </select>
+            </fieldset>
+
+            <fieldset>
+            <label style={{
+                fontSize: '2rem'
+            }}>Roll your stats</label>
+            <animated.button
+                type={"button"}
+                onClick={() => {setStats(rollStats())}}
+                id={"stats-dice-button"}
+                style={{...springs}}
+            >
+                🎲
+            </animated.button>
+            </fieldset>
+            <fieldset>
             <div>
                 <div style={{
                     display: "flex",
@@ -143,9 +213,19 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <button onClick={() => {
-                playHorn().catch(console.error)
-            }}>Create Your Character</button>
-        </div>
+            </fieldset>
+
+            <fieldset style={{
+                display: 'flex',
+                justifyContent: "center"
+            }}>
+                <button
+                    type={"submit"}
+                    className={"create-character-submit-button"}
+                >
+                     Create Your Character
+                </button>
+            </fieldset>
+        </form>
   );
 }
