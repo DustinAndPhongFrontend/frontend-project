@@ -9,7 +9,6 @@ import { useGLTF,
 
 } from '@react-three/drei'
 import {GLTF} from "three-stdlib";
-import { useRouter } from 'next/navigation';
 
 type GLTFResult = GLTF & {
     nodes: {
