@@ -86,7 +86,8 @@ type ACTION =
     | { type: "EQUIP_ITEM", equipment_slot: EquipmentSlots, item: Item }
     | { type: "ACCEPT_QUEST", quest: Quest }
     | { type: "FINISH_QUEST", questId: number }
-    | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats}
+    | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats }
+    | { type: "DELETE_CHARACTER" }
 
 function putStateInLocalStorage(reducer: Reducer<State, ACTION>) {
     // modify reducer so that what it returns is saved to local storage
@@ -177,7 +178,8 @@ export function appReducer(state: State, action: ACTION): State {
                 characterClass: action.characterClass,
                 stats: action.stats
             }
-
+        case "DELETE_CHARACTER":
+            return initialState
         default:
             return state;
     }
@@ -187,7 +189,8 @@ const AppContext = createContext(initialState);
 const AppDispatchContext = createContext((_: ACTION) => console.log(_));
 
 export default function AppProvider({ children } : { children: React.ReactNode }) {
-    const localStorageState = localStorage.getItem(LOCAL_STORAGE_KEY)
+    const isServer = typeof window === 'undefined'
+    const localStorageState = isServer ? null : localStorage.getItem(LOCAL_STORAGE_KEY)
     const initialStateFromLocalStorage = localStorageState ? JSON.parse(localStorageState) as State : initialState
     const [state, dispatch] = useReducer(putStateInLocalStorage(appReducer), initialStateFromLocalStorage);
 

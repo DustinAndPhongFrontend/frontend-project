@@ -5,6 +5,7 @@ import StatsComponent from '@/components/Stats'
 import {FormEvent, useEffect, useState} from "react";
 import {animated, useSpring} from "@react-spring/web";
 import {useApp, useAppDispatch} from "@/components/AppContext";
+import DeleteModal from '@/components/Modal'
 
 const NOUN_LIST = [
     "Baron",
@@ -69,6 +70,8 @@ export default function Home() {
     })
     const [placeholderUsername, setPlaceholderUsername] = useState<string>("")
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+
     function rollStats(): Stats {
         api.start({
             from: {
@@ -117,11 +120,24 @@ export default function Home() {
     }, [])
 
     if (createdUsername !== "") {
-        return <div className={"create-character-container"}
-        style={{
-            width: "50%",
-        }}>
+        return <div
+            className={"create-character-container"}
+            style={{
+                width: "50%",
+            }}
+            suppressHydrationWarning>
             <StatsComponent/>
+            <DeleteModal show={showDeleteModal} setShow={setShowDeleteModal}/>
+            <button
+                onClick={() => setShowDeleteModal(true)}
+                style={{
+                    backgroundColor: "#ff6f6f",
+                    borderRadius: "8px",
+                    padding: "4px"
+                }}
+            >
+                Delete
+            </button>
         </div>
     }
     return (
