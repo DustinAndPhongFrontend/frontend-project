@@ -1,9 +1,10 @@
 'use client'
 
-import React, {createContext, useContext, useReducer} from 'react'
+import React, {createContext, Reducer, useContext, useReducer} from 'react'
 import {CharacterClass, EQUIPMENT, EquipmentItem, EquipmentSlots, Item, ITEMS, Stats} from "@/components/items";
 import { processQuestCompletion } from '@/utils/questCompletion';
 
+const LOCAL_STORAGE_KEY = 'app_state';
 
 // Quest type definition
 export type Quest = {
@@ -85,10 +86,24 @@ type ACTION =
     | { type: "EQUIP_ITEM", equipment_slot: EquipmentSlots, item: Item }
     | { type: "ACCEPT_QUEST", quest: Quest }
     | { type: "FINISH_QUEST", questId: number }
-    | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats}
+    | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats }
+    | { type: "DELETE_CHARACTER" }
+
+function putStateInLocalStorage(reducer: Reducer<State, ACTION>) {
+    // modify reducer so that what it returns is saved to local storage
+    return (state: State, action: ACTION): State => {
+        // Run the reducer as usual
+        const new_state = reducer(state, action)
+
+        // Serialize the output to JSON and save it in localStorage
+        const json = JSON.stringify(new_state)
+        localStorage.setItem(LOCAL_STORAGE_KEY, json);
+
+        return new_state
+    }
+}
 
 export function appReducer(state: State, action: ACTION): State {
-    console.debug(action)
 
     switch (action.type) {
         case "MOVE_ITEM":
@@ -163,7 +178,8 @@ export function appReducer(state: State, action: ACTION): State {
                 characterClass: action.characterClass,
                 stats: action.stats
             }
-
+        case "DELETE_CHARACTER":
+            return initialState
         default:
             return state;
     }
@@ -173,7 +189,10 @@ const AppContext = createContext(initialState);
 const AppDispatchContext = createContext((_: ACTION) => console.log(_));
 
 export default function AppProvider({ children } : { children: React.ReactNode }) {
-    const [state, dispatch] = useReducer(appReducer, initialState);
+    const isServer = typeof window === 'undefined'
+    const localStorageState = isServer ? null : localStorage.getItem(LOCAL_STORAGE_KEY)
+    const initialStateFromLocalStorage = localStorageState ? JSON.parse(localStorageState) as State : initialState
+    const [state, dispatch] = useReducer(putStateInLocalStorage(appReducer), initialStateFromLocalStorage);
 
     return <AppContext.Provider value={state}>
         <AppDispatchContext.Provider value={dispatch}>

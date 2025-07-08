@@ -140,3 +140,7 @@ option {
     grid-column: span 2;
   }
 }
+
+button:hover {
+  cursor: pointer;
+}
