@@ -56,19 +56,25 @@ function EmptyInventorySlot({inventoryIndex}: EmptyInventorySlotProps) {
     </div>
 }
 
-// DragOverlay?
-// https://dndkit.com/
 export default function Inventory() {
     const {inventory} = useApp()
 
-    return <div>
-        <div>
+    return <div
+        style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+        }}>
+        <div style={{
+            fontSize: "2rem",
+            paddingBottom: "1vh"
+        }}>
             {"Inventory"}
         </div>
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gridAutoRows: '20vh'
+            gridAutoRows: '10vh'
         }}>
             {inventory
                 .map((item: Item, index: number) => {

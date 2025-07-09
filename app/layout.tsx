@@ -5,7 +5,7 @@ import AppProvider from "@/components/AppContext";
 import Header from "@/components/Header";
 
 export const metadata: Metadata = {
-  title: "RPG",
+  title: "Medieval Times",
   description: "Dustin and Phong's Frontend Project",
 };
 

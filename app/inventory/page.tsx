@@ -1,6 +1,6 @@
 'use client'
 
-import {DndContext, DragEndEvent} from '@dnd-kit/core';
+import {DndContext, DragEndEvent, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors} from '@dnd-kit/core';
 import Inventory from "@/components/Inventory";
 import {useApp, useAppDispatch} from "@/components/AppContext";
 import Equipment, {EQUIPMENT_SLOTS} from "@/components/Equipment";
@@ -10,17 +10,34 @@ export default function Page() {
     const dispatch = useAppDispatch()
     const state = useApp()
 
+    const mouseSensor = useSensor(MouseSensor);
+    const touchSensor = useSensor(TouchSensor);
+    const keyboardSensor = useSensor(KeyboardSensor);
+
+    const sensors = useSensors(
+        mouseSensor,
+        touchSensor,
+        keyboardSensor,
+    );
+
     function handleDragEnd(event: DragEndEvent): void {
         const {active, over} = event;
 
         if (over) {
             // drop on equipment
-            if (over && over.data.current?.accepts.includes(active.data.current?.type) && EQUIPMENT_SLOTS.includes(over.data.current?.slot)) {
-                dispatch({
-                    type: 'EQUIP_ITEM',
-                    equipment_slot: over.data.current?.slot,
-                    item: state.inventory[active.data.current?.inventoryIndex]
-                });
+            if (over && EQUIPMENT_SLOTS.includes(over.data.current?.slot)) {
+                if (over.data.current?.accepts.includes(active.data.current?.type)) {
+                    dispatch({
+                        type: 'EQUIP_ITEM',
+                        equipment_slot: over.data.current?.slot,
+                        item: state.inventory[active.data.current?.inventoryIndex]
+                    });
+                    const audio = new Audio(`https://dustin-alandzes-personal.s3.us-east-1.amazonaws.com/multiverse/equip-item.mp3`, )
+                    audio.play().catch(console.error)
+                } else {
+                    const audio = new Audio(`https://dustin-alandzes-personal.s3.us-east-1.amazonaws.com/multiverse/error.mp3#t=0.8`)
+                    audio.play().catch(console.error)
+                }
             // drop on inventory
             } else if (over && over.data.current?.accepts.includes(active.data.current?.type)) {
                 dispatch({
@@ -41,11 +58,9 @@ export default function Page() {
         <DndContext
             id="draggable-inventory"
             onDragEnd={handleDragEnd}
+            sensors={sensors}
         >
-            <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-            }}>
+            <div className={"inventory-container"}>
                 {/* The Stats component is not droppable or draggable, but it is convenient for it to be here */}
                 <Stats/>
                 <Equipment/>

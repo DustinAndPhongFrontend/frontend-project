@@ -82,12 +82,21 @@ function BootsSlot({boots}: {boots: EquipmentItem | null}) {
 export default function Equipment() {
     const {equipment} = useApp()
 
-    return <div>
-        <h1>Equipment</h1>
+    return <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center"
+    }}>
+        <div style={{
+            fontSize: "2rem",
+            paddingBottom: "1vh"
+        }}>
+            Equipment
+        </div>
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(1, 1fr)',
-            gridAutoRows: '20vh'
+            height: "100%"
         }}>
             <HelmetSlot helmet={equipment.helmet}/>
             <ArmorSlot armor={equipment.armor}/>
