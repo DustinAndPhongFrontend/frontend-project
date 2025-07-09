@@ -6,9 +6,9 @@ module.exports = {
    theme: {
       extend: {
          backgroundImage: {
-            'wood-texture': "url('/wood.jpeg')",
-            'parchment': "url('/parchment.jpg')",
-            'parchment-hover': "url('/parchment-hover.jpg')",
+            'wood-texture': "url('https://dustinandphongfrontend.github.io/frontend-project/wood.jpeg')",
+            'parchment': "url('https://dustinandphongfrontend.github.io/frontend-project/parchment.jpg')",
+            'parchment-hover': "url('https://dustinandphongfrontend.github.io/frontend-project/parchment-hover.jpg')",
          },
       },
    },
