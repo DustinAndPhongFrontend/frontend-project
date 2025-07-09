@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import AppProvider from "@/components/AppContext";
 import Header from "@/components/Header";
+import QuestCompletionModal from "@/components/QuestCompletionModal";
 
 export const metadata: Metadata = {
   title: "Medieval Times",
@@ -24,10 +25,11 @@ export default function RootLayout({
         className={`${germaniaOne.className} antialiased`}
       >
         <AppProvider>
-            <Header/>
-            <main>
-                {children}
-            </main>
+          <Header/>
+          <main>
+            {children}
+          </main>
+          <QuestCompletionModal />
         </AppProvider>
       </body>
     </html>

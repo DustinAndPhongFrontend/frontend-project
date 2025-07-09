@@ -171,20 +171,20 @@
    ],
    "armor": [
       {
-         "id": "dragonscale_armor",
-         "name": "Dragonscale Armor",
+         "id": "dragon_scale_armor",
+         "name": "Dragon Scale Armor",
          "description": "Armor forged from the scales of an ancient dragon, providing exceptional protection.",
          "type": "armor",
          "equipmentSlot": "armor",
          "rarity": "legendary",
          "value": 180,
          "stats": {
-            "strength": 10,
+            "strength": 15,
             "dexterity": -5,
             "intelligence": 0,
-            "luck": 5,
-            "maxHealth": 80,
-            "maxMana": 0
+            "luck": 15,
+            "maxHealth": 100,
+            "maxMana": 30
          },
          "requirements": {
             "level": 5,
