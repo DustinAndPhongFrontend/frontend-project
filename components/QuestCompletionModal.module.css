@@ -1,0 +1,374 @@
+/* Modal Overlay */
+.modalOverlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.9);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 2000;
+   padding: 1rem;
+   backdrop-filter: blur(5px);
+}
+
+.modalContainer {
+   background: linear-gradient(135deg, #f4e8d0, #e6d7c3);
+   border-radius: 16px;
+   width: 90%;
+   max-width: 480px;
+   min-width: 320px;
+   max-height: 90vh;
+   overflow: auto;
+   border: 6px solid #8B4513;
+   box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+   position: relative;
+   animation: modalAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalAppear {
+   from {
+      opacity: 0;
+      transform: scale(0.7) translateY(-50px);
+   }
+   to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+   }
+}
+
+/* Header */
+.header {
+   background: linear-gradient(135deg, #8B4513, #A0522D);
+   padding: 1rem 1.5rem;
+   text-align: center;
+   border-bottom: 4px solid #654321;
+   position: relative;
+   overflow: hidden;
+   min-height: fit-content;
+}
+
+.header::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+   animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+   from {
+      opacity: 0.5;
+   }
+   to {
+      opacity: 1;
+   }
+}
+
+.questCompleteTitle {
+   font-family: 'Cinzel', serif;
+   font-size: clamp(1rem, 3vw, 1.8rem);
+   color: #FFD700;
+   font-weight: 700;
+   text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 20px rgba(255, 215, 0, 0.6);
+   margin-bottom: 0.5rem;
+   letter-spacing: 0.3px;
+   position: relative;
+   z-index: 1;
+   white-space: nowrap;
+   overflow: visible;
+   display: inline-block;
+   width: 100%;
+}
+
+.questName {
+   font-family: 'Crimson Text', serif;
+   font-size: clamp(1.1rem, 3vw, 1.4rem);
+   color: #f4e8d0;
+   font-style: italic;
+   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+   position: relative;
+   z-index: 1;
+}
+
+/* Content */
+.content {
+   padding: 2rem;
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+/* Reward Sections */
+.rewardSection {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   padding: 1rem 1.5rem;
+   background: rgba(139, 69, 19, 0.1);
+   border-radius: 12px;
+   border: 2px solid rgba(139, 69, 19, 0.3);
+   opacity: 0;
+   transform: translateX(-30px);
+   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rewardSection.visible {
+   opacity: 1;
+   transform: translateX(0);
+}
+
+.rewardIcon {
+   font-size: 2.5rem;
+   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.rewardText {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+   flex: 1;
+}
+
+.rewardLabel {
+   font-family: 'Cinzel', serif;
+   font-size: 1.1rem;
+   color: #8B4513;
+   font-weight: 600;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+}
+
+.rewardValue {
+   font-family: 'Crimson Text', serif;
+   font-size: 1.4rem;
+   color: #2c1810;
+   font-weight: 700;
+}
+
+/* Items List */
+.itemsList {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+}
+
+.itemName {
+   background: linear-gradient(135deg, #FFD700, #FFA500);
+   color: #2c1810;
+   padding: 0.3rem 0.8rem;
+   border-radius: 20px;
+   font-family: 'Cinzel', serif;
+   font-size: 0.9rem;
+   font-weight: 600;
+   border: 2px solid #B8860B;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Level Up Section */
+.levelUpSection {
+   background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1));
+   border: 3px solid #FFD700;
+   border-radius: 16px;
+   padding: 1.5rem;
+   text-align: center;
+   position: relative;
+   opacity: 0;
+   transform: scale(0.8);
+   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+   overflow: hidden;
+}
+
+.levelUpSection.visible {
+   opacity: 1;
+   transform: scale(1);
+}
+
+.levelUpSection::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+   animation: levelUpGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes levelUpGlow {
+   from {
+      opacity: 0.3;
+   }
+   to {
+      opacity: 0.7;
+   }
+}
+
+.levelUpBanner {
+   font-family: 'Cinzel', serif;
+   font-size: clamp(1.5rem, 4vw, 2rem);
+   color: #FFD700;
+   font-weight: 700;
+   text-shadow: 
+      2px 2px 4px rgba(0, 0, 0, 0.8),
+      0 0 15px rgba(255, 215, 0, 0.8);
+   margin-bottom: 1rem;
+   letter-spacing: 2px;
+   position: relative;
+   z-index: 1;
+}
+
+.levelDisplay {
+   margin-bottom: 1.5rem;
+   position: relative;
+   z-index: 1;
+}
+
+.levelText {
+   font-family: 'Crimson Text', serif;
+   font-size: clamp(1.2rem, 3vw, 1.6rem);
+   color: #2c1810;
+   font-weight: 700;
+}
+
+/* Stat Increases */
+.statIncreases {
+   position: relative;
+   z-index: 1;
+}
+
+.statLabel {
+   font-family: 'Cinzel', serif;
+   font-size: 1.2rem;
+   color: #8B4513;
+   font-weight: 600;
+   margin-bottom: 1rem;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+}
+
+.statGrid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   gap: 0.8rem;
+}
+
+.statItem {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background: rgba(255, 255, 255, 0.3);
+   padding: 0.5rem 1rem;
+   border-radius: 8px;
+   border: 1px solid rgba(139, 69, 19, 0.3);
+}
+
+.statName {
+   font-family: 'Crimson Text', serif;
+   font-size: 0.95rem;
+   color: #2c1810;
+   font-weight: 600;
+}
+
+.statIncrease {
+   font-family: 'Cinzel', serif;
+   font-size: 1rem;
+   color: #228B22;
+   font-weight: 700;
+}
+
+/* Button Section */
+.buttonSection {
+   text-align: center;
+   opacity: 0;
+   transform: translateY(20px);
+   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.buttonSection.visible {
+   opacity: 1;
+   transform: translateY(0);
+}
+
+.closeButton {
+   background: linear-gradient(135deg, #8B4513, #A0522D);
+   color: #f4e8d0;
+   border: none;
+   padding: 1rem 2rem;
+   border-radius: 12px;
+   cursor: pointer;
+   font-family: 'Cinzel', serif;
+   font-size: 1.1rem;
+   font-weight: 600;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   box-shadow: 
+      0 6px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+   transition: all 0.3s ease;
+   position: relative;
+   overflow: hidden;
+}
+
+.closeButton::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+   transition: left 0.5s;
+}
+
+.closeButton:hover::before {
+   left: 100%;
+}
+
+.closeButton:hover {
+   background: linear-gradient(135deg, #A0522D, #8B4513);
+   transform: translateY(-2px);
+   box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.closeButton:active {
+   transform: translateY(0);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+   .modalContainer {
+      margin: 0.5rem;
+      max-width: calc(100vw - 1rem);
+   }
+   
+   .content {
+      padding: 1.5rem;
+      gap: 1rem;
+   }
+   
+   .rewardSection {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.5rem;
+   }
+   
+   .statGrid {
+      grid-template-columns: 1fr;
+   }
+   
+   .itemsList {
+      justify-content: center;
+   }
+}

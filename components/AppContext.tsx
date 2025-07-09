@@ -2,7 +2,7 @@
 
 import React, {createContext, Reducer, useContext, useReducer} from 'react'
 import {CharacterClass, EQUIPMENT, EquipmentItem, EquipmentSlots, Item, ITEMS, Stats} from "@/components/items";
-import { processQuestCompletion } from '@/utils/questCompletion';
+import { processQuestCompletion, QuestCompletionResult } from '@/utils/questCompletion';
 
 const LOCAL_STORAGE_KEY = 'app_state';
 
@@ -51,7 +51,8 @@ interface State {
     stats: Stats,
     gold: number,
     acceptedQuests: Quest[],
-    completedQuests: Quest[]
+    completedQuests: Quest[],
+    completionResult: QuestCompletionResult | null
 }
 
 export const initialState: State = {
@@ -78,7 +79,8 @@ export const initialState: State = {
     },
     gold: 0,
     acceptedQuests: [],
-    completedQuests: []
+    completedQuests: [],
+    completionResult: null
 }
 
 type ACTION =
@@ -88,6 +90,8 @@ type ACTION =
     | { type: "FINISH_QUEST", questId: number }
     | { type: "CREATE_CHARACTER", username: string, characterClass: CharacterClass, stats: Stats }
     | { type: "DELETE_CHARACTER" }
+    | { type: "SHOW_COMPLETION_RESULT", result: QuestCompletionResult }
+    | { type: "HIDE_COMPLETION_RESULT" }
 
 function putStateInLocalStorage(reducer: Reducer<State, ACTION>) {
     // modify reducer so that what it returns is saved to local storage
@@ -168,7 +172,8 @@ export function appReducer(state: State, action: ACTION): State {
                 completedQuests: [...state.completedQuests, completionResult.completedQuest],
                 inventory: completionResult.newInventory,
                 gold: completionResult.newGold,
-                stats: completionResult.newStats
+                stats: completionResult.newStats,
+                completionResult: completionResult
             };
 
         case "CREATE_CHARACTER":
@@ -180,6 +185,19 @@ export function appReducer(state: State, action: ACTION): State {
             }
         case "DELETE_CHARACTER":
             return initialState
+
+        case "SHOW_COMPLETION_RESULT":
+            return {
+                ...state,
+                completionResult: action.result
+            }
+
+        case "HIDE_COMPLETION_RESULT":
+            return {
+                ...state,
+                completionResult: null
+            }
+
         default:
             return state;
     }
