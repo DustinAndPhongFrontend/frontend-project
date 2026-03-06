@@ -1,4 +1,4 @@
-# Frontend Project (name TBD)
+# Medieval Times
 
 
 ![deploy](https://github.com/DustinAndPhongFrontend/frontend-project/actions/workflows/nextjs.yml/badge.svg?branch=main)
