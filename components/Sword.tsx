@@ -20,9 +20,11 @@ type GLTFResult = GLTF & {
     }
 }
 
+const MODEL_URL = '/models/sword-1/model.gltf'
+
 export default function Model(props: JSX.IntrinsicElements['group']) {
     const group = useRef<THREE.Group | null>(null)
-    const { nodes, materials } = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/sword-1/model.gltf') as unknown as GLTFResult
+    const { nodes, materials } = useGLTF(MODEL_URL) as unknown as GLTFResult
 
     const [hovered, setHovered] = useState(false)
 
@@ -46,4 +48,4 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
     )
 }
 
-useGLTF.preload('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/sword-1/model.gltf')
+useGLTF.preload(MODEL_URL)

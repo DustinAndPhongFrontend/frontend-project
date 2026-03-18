@@ -29,4 +29,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - https://pixabay.com/sound-effects/medieval-75892/
 - https://pixabay.com/sound-effects/finger-snap-43482/
 - https://pixabay.com/sound-effects/error-126627/
-- https://market.pmnd.rs/model/sword-1
